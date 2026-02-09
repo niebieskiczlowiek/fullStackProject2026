@@ -1,5 +1,4 @@
-// lib/prisma.ts
-import { PrismaClient } from "../src/generated/prisma/client"; // Path from your schema output
+import { PrismaClient } from "../generated/prisma/client"; // Path from your schema output
 import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
 
@@ -7,7 +6,7 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 // 1. Set up the connection pool
 const pool = new pg.Pool({ 
-  connectionString: process.env.DATABASE_URL // Uses the 6543 pooled URL
+  connectionString: process.env.DATABASE_URL
 });
 
 // 2. Create the adapter (Required for Prisma 7)
@@ -18,7 +17,7 @@ export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
     adapter,
-    log: ["query"], // Useful for seeing your SQL in the terminal
+    log: ["query"],
   });
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
