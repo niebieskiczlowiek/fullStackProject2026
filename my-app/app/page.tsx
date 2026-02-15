@@ -1,11 +1,13 @@
 import { FilmService } from '@/services/film';
 
 export default async function Home() {
-  const [film, popularFilms, nowPlayingFilms] = await Promise.all([
+  const data = await Promise.all([
     FilmService.getDetails(840464),
     FilmService.getPopular(1),
     FilmService.getNowPlaying(1)
   ])
+
+  const [film, popularFilms, nowPlayingFilms] = data;
 
 
 
