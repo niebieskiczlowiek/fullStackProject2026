@@ -7,9 +7,10 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
         throw new Error("Missing TMDB API keys in Enviroment Variables");
     }
     
-    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-    const cleanBase = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
-    const url = `${cleanBase}${cleanEndpoint}`;
+    // const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    // const cleanBase = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+    // const url = `${cleanBase}${cleanEndpoint}`;
+    const url = `${BASE_URL}${endpoint}`;
     
     const response = await fetch(url, {
         ...options,
