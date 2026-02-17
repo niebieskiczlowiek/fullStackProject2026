@@ -1,41 +1,55 @@
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod"; 
+"use client";
+
+import { 
+    Dialog, 
+    DialogClose, 
+    DialogContent, 
+    DialogFooter, 
+    DialogHeader, 
+    DialogTitle, 
+    DialogTrigger 
+} from "./ui/dialog";
 import { Button } from "./ui/button";
-import { Field, FieldGroup, FieldSet } from "./ui/field";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { Field, FieldGroup, FieldSet } from "./ui/field";
+
+import { signUpSchema, signUpValues } from "@/lib/validations/auth";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"; 
 import { useState } from "react";
-import { signInSchema, signInValues } from "@/lib/validations/auth";
 import AuthFormDialogWrapper from "./auth-dialog-wrapper";
 
-interface SignInDialogProps {
+interface SignUpDialogProps {
     btnText?: string,
     btnClassName?: string
 }
 
-const SignInDialog = ({
+const SignUpDialog = ({
     btnText,
     btnClassName
-}: SignInDialogProps) => {
-    const form = useForm<signInValues>({
-        resolver: zodResolver(signInSchema),
+}: SignUpDialogProps) => {
+    const form = useForm<signUpValues>({
+        resolver: zodResolver(signUpSchema),
         defaultValues: {
+            email: "",
             username: "",
-            password: ""
+            password: "",
+            confirmPassword: ""
         },
         mode: "onSubmit"
     });
 
     const { register, formState: { errors, isSubmitting }} = form;
 
-    const onSubmit = (data: signInValues) => {
+    const onSubmit = (data: signUpValues) => {
         console.log(data);
     }
 
     return (
         <AuthFormDialogWrapper
-            title="Sign In"
+            title="Sign Up"
             form={form}
             onSubmit={onSubmit}
             btnText={btnText}
@@ -43,6 +57,16 @@ const SignInDialog = ({
         >
             <FieldSet>
                 <FieldGroup>
+                    <Field>
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                            {...register("email")}
+                            id="email"
+                            aria-invalid={errors.username ? "true" : "false"}
+                            className={errors.username ? "border-red-500": ""} 
+                        />
+                        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+                    </Field>
                     <Field>
                         <Label htmlFor="username">Username</Label>
                         <Input 
@@ -64,6 +88,17 @@ const SignInDialog = ({
                         />
                         {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
                     </Field>
+                    <Field>
+                        <Label htmlFor="confirmPassword">Confirm password</Label>
+                        <Input 
+                            {...register("confirmPassword")} 
+                            type="password" 
+                            id="confirmPassword"
+                            aria-invalid={errors.username ? "true" : "false"}
+                            className={errors.username ? "border-red-500": ""} 
+                        />
+                        {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>}
+                    </Field>
                 </FieldGroup>
                 <DialogFooter>
                     <DialogClose asChild>
@@ -78,4 +113,4 @@ const SignInDialog = ({
     );
 }
 
-export default SignInDialog;
+export default SignUpDialog;

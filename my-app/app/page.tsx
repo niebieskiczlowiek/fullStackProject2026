@@ -4,6 +4,7 @@ import { Eye, Heart, List, MessageSquare } from "lucide-react"
 import { FilmService } from "@/services/film"
 import FilmCarousel from "@/components/film-carousel"
 import ActivityItem from "@/components/activity-item"
+import SignUpDialog from "@/components/sign-up-dialog"
 
 
 const recentReviews = [
@@ -59,12 +60,10 @@ const HomePage = async () => {
               Save those you want to see. Tell your friends what&apos;s good.
             </p>
             <div className="mt-6 flex items-center gap-3">
-              <Link
-                href="/sign-up"
-                className="rounded bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)]"
-              >
-                Get Started — It&apos;s Free
-              </Link>
+              <SignUpDialog 
+                btnText="Get Started — It&apos;s Free"
+                btnClassName="rounded bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)]"
+              />
               <Link
                 href="/films"
                 className="rounded border border-border px-5 py-2.5 text-sm font-bold text-foreground transition-colors hover:border-muted-foreground"

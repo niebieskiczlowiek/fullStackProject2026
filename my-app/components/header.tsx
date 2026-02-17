@@ -79,12 +79,6 @@ export const Header = () => {
                 </div>
                 </div>
             </Link>
-            {/* <Link
-                href="/sign-in"
-                className="hidden rounded bg-primary px-3 py-1 text-sm font-semibold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)] md:block"
-            >
-                Sign In
-            </Link> */}
             <SignInDialog />
 
             {/* Mobile menu button */}
@@ -120,18 +114,18 @@ export const Header = () => {
                 </Link>
                 ))}
                 <Link
-                href="/profile"
-                onClick={() => setMobileOpen(false)}
-                className="rounded px-3 py-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-[hsl(0,0%,95%)]"
-                >
-                Profile
+                    href="/profile"
+                    onClick={() => setMobileOpen(false)}
+                    className="rounded px-3 py-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground transition-colors hover:bg-secondary hover:text-[hsl(0,0%,95%)]"
+                    >
+                    Profile
                 </Link>
                 <Link
-                href="/sign-in"
-                onClick={() => setMobileOpen(false)}
-                className="mt-2 rounded bg-primary px-3 py-2 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)]"
-                >
-                Sign In
+                    href="/sign-in"
+                    onClick={() => setMobileOpen(false)}
+                    className="mt-2 rounded bg-primary px-3 py-2 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)]"
+                    >
+                    Sign In
                 </Link>
             </div>
             </nav>
