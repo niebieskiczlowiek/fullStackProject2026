@@ -9,6 +9,9 @@ import FilmCarousel from "@/components/film-carousel"
 import { FilmService } from "@/services/film"
 import { Film, FilmSet } from "@/types/film";
 import Image from "next/image";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import ToolTipBtn from "@/components/tool-tip-btn"
+import RatingChart from "@/components/rating-chart"
 
 const reviews = [
   {
@@ -54,7 +57,14 @@ const FilmPage = async ({
   return (
     <div>
       {/* Film backdrop */}
-      <div className="relative h-56 w-full overflow-hidden bg-[hsl(30,40%,18%)] md:h-80">
+      <div className="relative h-56 w-full overflow-hidden md:h-120">
+        <Image
+          src={`${process.env.TMDB_IMG_BASE_URL}${filmDetails.backdrop_path}`}
+          alt={filmDetails.title}
+          fill
+          className="object-cover object-top -z-10"
+          priority
+        />
         <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent" />
       </div>
 
@@ -67,7 +77,7 @@ const FilmPage = async ({
               className="relative overflow-hidden h-56 w-36 rounded border border-border/50 shadow-lg md:h-72 md:w-48"
             >
               <Image
-                src={`https://image.tmdb.org/t/p/original/${filmDetails.poster_path}`}
+                src={`${process.env.TMDB_IMG_BASE_URL}${filmDetails.poster_path}`}
                 alt={filmDetails.title}
                 fill
                 className="object-cover z-10"
@@ -82,8 +92,9 @@ const FilmPage = async ({
               <h1 className="text-2xl font-bold text-[hsl(0,0%,95%)] md:text-4xl">
                 {filmDetails.title}
               </h1>
+              <p className="text-muted-foreground">{filmDetails.tagline}</p>
               <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                <span>{filmDetails.release_date.getFullYear()}</span>
+                <span >{filmDetails.release_date.getFullYear()}</span>
                 <span className="text-border">|</span>
                 {/* <span>Directed by</span>
                 <Link
@@ -113,56 +124,58 @@ const FilmPage = async ({
               ))}
             </div>
 
-            {/* Rating summary */}
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <StarRating rating={filmDetails.vote_average} size="lg" />
-                <span className="text-lg font-bold text-[hsl(0,0%,95%)]">
-                  {filmDetails.vote_average}
-                </span>
-              </div>
-              <span className="text-sm text-muted-foreground">
-                based on 145,832 ratings
-              </span>
-            </div>
-
             {/* Actions */}
             <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                className="flex items-center gap-1.5 rounded bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)]"
-              >
-                <Eye className="h-4 w-4" />
-                <span>Log or Review</span>
-              </button>
-              <button
-                type="button"
-                className="flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-muted-foreground"
-              >
-                <Heart className="h-4 w-4" />
-                <span>Like</span>
-              </button>
-              <button
-                type="button"
-                className="flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-muted-foreground"
-              >
-                <Clock className="h-4 w-4" />
-                <span>Watchlist</span>
-              </button>
-              <button
-                type="button"
-                className="flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-muted-foreground"
-              >
-                <List className="h-4 w-4" />
-                <span>Add to List</span>
-              </button>
-              <button
-                type="button"
-                className="flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-muted-foreground"
-              >
-                <Share2 className="h-4 w-4" />
-                <span>Share</span>
-              </button>
+              <ToolTipBtn content="Log or Review">
+                <button
+                  type="button"
+                  className="flex items-center gap-1.5 rounded bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)]"
+                >
+                  <Eye className="h-4 w-4" />
+                  <span>Log or Review</span>
+                </button>
+              </ToolTipBtn>
+              <ToolTipBtn content="Like">
+                  <button
+                    type="button"
+                    className="flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-muted-foreground"
+                  >
+                    <Heart className="h-4 w-4" />
+                    <span>Like</span>
+                  </button>
+              </ToolTipBtn>
+              <ToolTipBtn content="Add to watchlist">
+                <button
+                  type="button"
+                  className="flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-muted-foreground"
+                >
+                  <Clock className="h-4 w-4" />
+                  <span>Watchlist</span>
+                </button>
+              </ToolTipBtn>
+              <ToolTipBtn content="Add to List">
+                <button
+                  type="button"
+                  className="flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-muted-foreground"
+                >
+                  <List className="h-4 w-4" />
+                  <span>Add to List</span>
+                </button>
+              </ToolTipBtn>
+              <ToolTipBtn content="Share">
+                <button
+                  type="button"
+                  className="flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-muted-foreground"
+                >
+                  <Share2 className="h-4 w-4" />
+                  <span>Share</span>
+                </button>
+              </ToolTipBtn>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <RatingChart rating={filmDetails.vote_average} />
             </div>
           </div>
         </div>
