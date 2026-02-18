@@ -1,14 +1,6 @@
 "use client";
 
-import { 
-    Dialog, 
-    DialogClose, 
-    DialogContent, 
-    DialogFooter, 
-    DialogHeader, 
-    DialogTitle, 
-    DialogTrigger 
-} from "./ui/dialog";
+import { DialogClose,  DialogFooter } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -18,7 +10,6 @@ import { signUpSchema, signUpValues } from "@/lib/validations/auth";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"; 
-import { useState } from "react";
 import AuthFormDialogWrapper from "./auth-dialog-wrapper";
 
 interface SignUpDialogProps {

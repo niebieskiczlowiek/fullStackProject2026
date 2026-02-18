@@ -1,13 +1,13 @@
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod"; 
-import { Button } from "./ui/button";
+import { DialogClose, DialogFooter } from "./ui/dialog";
 import { Field, FieldGroup, FieldSet } from "./ui/field";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { useState } from "react";
-import { signInSchema, signInValues } from "@/lib/validations/auth";
+import { Button } from "./ui/button";
 import AuthFormDialogWrapper from "./auth-dialog-wrapper";
+import { signInSchema, signInValues } from "@/lib/validations/auth";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"; 
 
 interface SignInDialogProps {
     btnText?: string,
