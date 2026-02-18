@@ -57,7 +57,7 @@ const FilmPage = async ({
   console.log(filmReviews)  
 
   return (
-    <div className="container">
+    <div>
       {/* Film backdrop */}
       <div className="relative h-56 w-full overflow-hidden md:h-120">
         <Image
