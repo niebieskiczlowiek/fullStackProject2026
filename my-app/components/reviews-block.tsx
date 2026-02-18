@@ -31,7 +31,7 @@ const ReviewsBlock = ({
                 {reviews.results.slice(0, 4).map((review) => (
                   <article
                     key={review.author}
-                    className="rounded border border-border bg-card p-4"
+                    className="@container group rounded border border-border bg-card p-4"
                   >
                     <div className="flex items-center gap-2">
                       <div className="h-6 w-6 rounded-full bg-secondary" />

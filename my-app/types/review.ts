@@ -1,3 +1,5 @@
+import { DataSet } from "./dataSet"
+
 export interface Review {
     id: string,
     author: string,
@@ -17,10 +19,6 @@ export interface Review {
     url: string
 }
 
-export interface ReviewSet {
-    id: number,
-    page: number,
+export type ReviewSet = DataSet & { 
     results: Array<Omit<Review, "iso_639_1" | "media_id" | "media_title" | "media_type">>,
-    total_pages: number,
-    total_results: number
 }

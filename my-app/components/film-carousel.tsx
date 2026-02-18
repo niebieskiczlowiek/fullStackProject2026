@@ -38,7 +38,7 @@ const FilmCarousel = ({
                     align: "start",
                     loop: true
                 }}
-                className="w-full"
+                className="w-full @container"
             >
                 <CarouselContent>
                     {films.map((film, index) => (

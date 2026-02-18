@@ -57,7 +57,7 @@ const FilmPage = async ({
   console.log(filmReviews)  
 
   return (
-    <div>
+    <div className="container">
       {/* Film backdrop */}
       <div className="relative h-56 w-full overflow-hidden md:h-120">
         <Image
@@ -74,7 +74,7 @@ const FilmPage = async ({
       <div className="relative z-10 mx-auto -mt-32 max-w-6xl px-4 md:-mt-40">
         <div className="flex flex-col gap-6 md:flex-row">
           {/* Poster */}
-          <div className="shrink-0">
+          <div className="animate-fade-in shrink-0">
             <div
               className="relative overflow-hidden h-56 w-36 rounded border border-border/50 shadow-lg md:h-72 md:w-48"
             >
@@ -91,7 +91,7 @@ const FilmPage = async ({
           {/* Details */}
           <div className="flex flex-1 flex-col gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-[hsl(0,0%,95%)] md:text-4xl">
+              <h1 className="animate-fade-in text-2xl font-bold text-[hsl(0,0%,95%)] md:text-4xl">
                 {filmDetails.title}
               </h1>
               <p className="text-muted-foreground">{filmDetails.tagline}</p>
@@ -131,7 +131,7 @@ const FilmPage = async ({
               <ToolTipBtn content="Log or Review">
                 <button
                   type="button"
-                  className="flex items-center gap-1.5 rounded bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)]"
+                  className="group flex items-center gap-1.5 rounded bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-colors hover:bg-[hsl(145,100%,38%)]"
                 >
                   <Eye className="h-4 w-4" />
                   <span>Log or Review</span>
@@ -223,7 +223,7 @@ const FilmPage = async ({
               <Link
                 key={name}
                 href="/members"
-                className="rounded-sm bg-secondary px-2.5 py-1 text-xs font-semibold text-foreground transition-colors hover:bg-muted hover:text-[hsl(0,0%,95%)]"
+                className="group rounded-sm bg-secondary px-2.5 py-1 text-xs font-semibold text-foreground transition-colors hover:bg-muted hover:text-[hsl(0,0%,95%)]"
               >
                 {name}
               </Link>
