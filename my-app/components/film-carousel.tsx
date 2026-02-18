@@ -47,7 +47,7 @@ const FilmCarousel = ({
                                 key={film.title}
                                 title={film.title}
                                 posterPath={`https://image.tmdb.org/t/p/original/${film.poster_path}`}
-                                rating={film.vote_average/2}
+                                rating={film.vote_average}
                             />
                         </CarouselItem>
                     ))}

@@ -33,8 +33,6 @@ export const FilmCard = ({
       >
         <div
           className="flex h-full w-full items-end p-2"
-          // style={{ backgroundColor: posterPath }}
-          // style={{ backgroundImage: `url(posterPath)` }}
         >
           <Image 
             src={posterPath}
