@@ -1,5 +1,6 @@
 "use client";
 
+import { signInValues, signUpValues } from "@/lib/validations/auth";
 import { AuthService } from "@/services/auth";
 import { User } from "@/types/user";
 import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -8,16 +9,18 @@ import React, { createContext, useContext, useState } from "react";
 
 interface RootProviderProps {
     children: React.ReactNode,
-    initialUser: any | null,
+    initialUser: User | null,
 }
 
 interface AuthContextValue {
-    user: any | null;
+    user: User | null;
     isLoading: boolean;
+    signIn: (data: signInValues) => Promise<void>;
+    signUp: (data: signUpValues) => Promise<void>;
     signOut: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextValue | undefined>({ user: null, isLoading: true, signOut: async () => {} });
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function useAuth(): AuthContextValue {
     const context = useContext(AuthContext);
@@ -46,8 +49,37 @@ const AuthProvider = ({ children, initialUser }: RootProviderProps) => {
         }
     }
 
+    const signIn = async (data: signInValues) => {
+        try {
+            const user = await AuthService.signIn(data);
+            queryClient.setQueryData(['auth-user'], user);
+            router.push("/");
+            router.refresh();
+        } catch (error) {
+            console.error("Sign-in failed: ", error);
+            throw error;
+        }
+    }
+
+    const signUp = async (data: signUpValues) => {
+        try {
+            await AuthService.signUp(data);
+            router.push("/sign-in");
+            router.refresh();
+        } catch (error) {
+            console.error("Sign-up failed: ", error);
+            throw error;
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user: user ?? null, isLoading, signOut }}>
+        <AuthContext.Provider value={{ 
+            user: user ?? null, 
+            isLoading, 
+            signIn, 
+            signUp,
+            signOut 
+        }}>
             {children}
         </AuthContext.Provider>
     )

@@ -19,7 +19,7 @@ const navLinks = [
 
 export const Header = () => {
     const pathname = usePathname();
-    const { user, isLoading, signOut } = useAuth();
+    const { user, signOut } = useAuth();
 
     return (
         <header className="sticky top-0 z-50 border-b border-border bg-[hsl(200,20%,7%)]">

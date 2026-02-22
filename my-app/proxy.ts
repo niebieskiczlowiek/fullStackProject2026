@@ -7,17 +7,27 @@ export const config = {
     matcher: [
         '/api/users/me',
         '/api/auth/logout',
-        '/api/users/:path*',
-
-        '/u/me'
+        '/u/me',
+        '/sign-in',
+        '/sign-up',
     ]
 }
 
 export const proxy = async (request: NextRequest) => {
     const token = request.cookies.get("auth-token")?.value;
-    const isApiRoute = request.nextUrl.pathname.startsWith("/api");
+    const { pathname } = request.nextUrl;
 
-    if (!token || !(await verifyToken(token))) {
+    const isApiRoute = pathname.startsWith("/api");
+    const isAuthPage = pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
+
+    if (token && isAuthPage) {
+        const isValid = await verifyToken(token);
+        if (isValid) {
+            return NextResponse.redirect(new URL("/", request.url));
+        }
+    }
+
+    if (!isAuthPage && (!token || !(await verifyToken(token)))) {
         if (isApiRoute) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
         } else {
