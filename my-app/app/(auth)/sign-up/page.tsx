@@ -12,11 +12,23 @@ export default function SignUpPage() {
         </CardHeader>
         <CardContent>
           <SignUpForm 
-            footer={({ isSubmitting }) => (
+            footer={({ isSubmitting, currentStep, isLastStep, nextStep, prevStep }) => (
               <CardFooter className="justify-center">
-                <Button disabled={isSubmitting} type="submit">
-                  {isSubmitting ? "Submitting..." : "Submit"}
+                <Button
+                  type="button" 
+                  variant="ghost" 
+                  onClick={prevStep} 
+                  disabled={currentStep === 0}
+                >
+                  Back
                 </Button>
+                {isLastStep ? (
+                  <Button disabled={isSubmitting} type="submit">
+                    {isSubmitting ? "Submitting..." : "Submit"}
+                  </Button>
+                ) : (
+                  <Button type="button" onClick={nextStep}>Continue</Button>
+                )}
               </CardFooter>
             )}
           />

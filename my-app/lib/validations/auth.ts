@@ -13,8 +13,14 @@ export const signInSchema = z.object({
 export type signInValues = z.infer<typeof signInSchema>
 
 export const signUpSchema = z.object({
-    first_name: z.string().trim(),
-    last_name: z.string().trim(),
+    first_name: z
+        .string()
+        .trim()
+        .min(1, "Enter name"),
+    last_name: z
+        .string()
+        .trim()
+        .min(1, "Enter surname"),
     email: z
         .email("Invalid email address")
         .trim()

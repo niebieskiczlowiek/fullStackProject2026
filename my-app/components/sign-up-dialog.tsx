@@ -44,14 +44,29 @@ const SignUpDialog = ({
             {({ setOpen }) => (
                 <SignUpForm 
                     callback={() => setOpen(false)}
-                    footer={({ isSubmitting }) => (
+                    footer={({ isSubmitting, currentStep, isLastStep, nextStep, prevStep }) => (
                         <DialogFooter>
-                            <DialogClose asChild>
-                                <Button variant="outline" type="button">Cancel</Button>
-                            </DialogClose>
-                            <Button disabled={isSubmitting} type="submit">
-                                {isSubmitting ? "Submitting..." : "Submit"}
-                            </Button>
+                            {currentStep > 0 ? (
+                                <Button 
+                                    type="button"
+                                    variant="ghost"
+                                    onClick={prevStep}
+                                >
+                                    Back
+                                </Button>
+                            ): (
+                                <DialogClose asChild>
+                                    <Button variant="outline" type="button">Cancel</Button>
+                                </DialogClose>
+                            )}
+
+                            {isLastStep ? (
+                                <Button disabled={isSubmitting} type="submit">
+                                    {isSubmitting ? "Submitting..." : "Submit"}
+                                </Button>
+                            ): (
+                                <Button type="button" onClick={nextStep}>Continue</Button>
+                            )}
                         </DialogFooter>
                     )}
                 />
